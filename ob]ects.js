@@ -196,25 +196,79 @@
           
             // здесь тренируем вложенные ссылочные типы в объекты. это сами объекты и массивы
             // второе мы можем обращаться к элементам структуры как угодно через точку или скобки массива (.[])
-            // а еще используем тут перебор через for of
+
+            //-------перебор через for of--------------------------------------------------------
             console.clear();
 
             obj ={
                 names:["joker","batman","penguin"],
                 cities:[
-                    {name:"arkham",squre: 15},
-                    {name:"New york",squre: 30},
-                    {name:"Paris",squre: 20}
-                ] 
+                    a={name:"arkham",squre: 15},
+                    b={name:"New york",squre: 30},
+                    c={name:"Paris",squre: 20}
+                ] ,
+                func(){
+                    console.lofg("hello!")
+                }
             }
 
             for(i of obj.names){
-                console.log(i);
+                // console.log(i);
             }
             
             for(i of obj["cities"]){
-                console.log(i);
+                // console.log(i);
             }
+            //также есть перебор полей через for in
+            for(i in obj){ 
+                console.log(i + " : " +obj[i] );
+            }
+            // так же есть поиск полей в объекте по имени через in, == undefinded, и встроенный метод .hasOwnProperty       
+            if ("names" in obj){
+                console.log("есть!");
+            }
+            if (obj.names!==undefined){
+                console.log("есть!");
+            }
+            if (obj.hasOwnProperty("names")){
+                console.log("есть!");
+            }
+           
+            console.log(Object.entries(obj)); // выдает поля и их значения в виде массива пар ключей
+            console.log(Object.keys(obj));   // выдает поля в виде массива клюыей
+            console.log(Object.values(obj)); // выдает значение полей в виде массива значений
+
+
+
+
+             //--------копирование объектов------------------------------------------------------------------------------------------
+            // объекты и массивы это ссылочные типы при присвоении они не создают дубликаты
+             obj = {name:"batman"};
+            var obj2 = obj;
+            obj2.name = "joker";
+            // console.clear();
+            // console.log(obj.name);
+
+            //копирование объектов при помощи Object.assing можно добавлять множество свойств из разных объектов. одноименные объекты затирают предыдущее значение. 
+            
+            hero = { name:"batman",age:37,strength:50};
+            enemy = {name:"joker",age:41,strength:25};
+
+            ghost = Object.assign({},hero); //просто создали объект и присвоили один класс
+            // console.clear();
+            // console.log(ghost);
+            ghost = Object.assign(ghost,enemy); // здесь поля добавились и заменили предыдущие
+            // console.log(ghost);
+
+            ghost = {...hero}; // также можно передвать поля через spread ... в этом слчае данные копируются. в остальном все также
+            // console.log(ghost);
+
+            // объекты можно сравнивать. Объекты будут равны только в том случае если были присвоены по ссылке.
+
+            ghost = hero; 
+            // console.log(ghost==hero);
+
+
             
 
 
